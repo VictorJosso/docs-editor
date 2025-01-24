@@ -1,12 +1,18 @@
 "use client";
 
+import { Color } from "@tiptap/extension-color";
+import FontFamily from "@tiptap/extension-font-family";
+import { Highlight } from "@tiptap/extension-highlight";
 import Image from "@tiptap/extension-image";
+import Link from "@tiptap/extension-link";
 import Table from "@tiptap/extension-table";
 import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
+import TextStyle from "@tiptap/extension-text-style";
+import Underline from "@tiptap/extension-underline";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import ImageResize from "tiptap-extension-resize-image";
@@ -30,10 +36,24 @@ export const Editor = () => {
       }),
       TableCell,
       TableHeader,
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        defaultProtocol: "https",
+        protocols: ["http", "https", "mailto"],
+      }),
       TableRow,
+      Underline,
+      Color,
+      Highlight.configure({
+        multicolor: true,
+      }),
+      FontFamily,
+      TextStyle,
       Image,
       ImageResize,
       TaskList,
+
       TaskItem.configure({
         nested: true,
       }),
@@ -77,6 +97,7 @@ export const Editor = () => {
             </tr>
           </tbody>
         </table>
+        <p>coucou</p>
 `,
   });
 

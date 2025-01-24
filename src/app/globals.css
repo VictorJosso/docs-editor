@@ -141,11 +141,13 @@ body {
     }
   }
 
-  .ProseMirror-selectednode {
-    div {
-      div {
-        display: none;
-      }
+  /* Link styles */
+  a {
+    color: var(--purple);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--purple-contrast);
     }
   }
 
