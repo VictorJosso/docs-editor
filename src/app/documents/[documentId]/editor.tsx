@@ -11,11 +11,15 @@ import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
+import TextAlign from "@tiptap/extension-text-align";
 import TextStyle from "@tiptap/extension-text-style";
 import Underline from "@tiptap/extension-underline";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import ImageResize from "tiptap-extension-resize-image";
+
+import { FontSize } from "@/extensions/font-size";
+import { lineHeight } from "@/extensions/line-height";
 
 import { useEditorState } from "@/store/use-editor-store";
 
@@ -31,6 +35,7 @@ export const Editor = () => {
     },
     extensions: [
       StarterKit,
+      FontSize,
       Table.configure({
         resizable: true,
       }),
@@ -51,9 +56,20 @@ export const Editor = () => {
       FontFamily,
       TextStyle,
       Image,
+      lineHeight.configure({
+        types: ["heading", "paragraph"],
+      }),
       ImageResize,
       TaskList,
-
+      TextAlign.configure({
+        types: [
+          "heading",
+          "paragraph",
+          "list_item",
+          "ordered_list",
+          "bullet_list",
+        ],
+      }),
       TaskItem.configure({
         nested: true,
       }),
