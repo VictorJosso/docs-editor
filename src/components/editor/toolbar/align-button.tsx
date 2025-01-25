@@ -1,44 +1,50 @@
 import { cn } from "@/lib/utils";
 import { useEditorState } from "@/store/use-editor-store";
-import { ListCollapseIcon } from "lucide-react";
+import {
+  AlignCenterIcon,
+  AlignJustifyIcon,
+  AlignLeftIcon,
+  AlignRightIcon,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "../../ui/dropdown-menu";
 
-export const LineHeightButton = () => {
+export const AlignButton = () => {
   const { editor } = useEditorState();
 
-  const lineHeights = [
-    { label: "Default", value: "normal" },
-    { label: "Single", value: "1" },
-    { label: "1.15", value: "1.15" },
-    { label: "1.5", value: "1.5" },
-    { label: "Double", value: "2" },
+  const alignments = [
+    { label: "Left", value: "left", icon: AlignLeftIcon },
+    { label: "Center", value: "center", icon: AlignCenterIcon },
+    { label: "Right", value: "right", icon: AlignRightIcon },
+    { label: "Justify", value: "justify", icon: AlignJustifyIcon },
   ];
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
-          <ListCollapseIcon className="size-4" />
+          <AlignLeftIcon className="size-4" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
-        {lineHeights.map((height) => (
+        {alignments.map((alignment) => (
           <button
-            key={height.value}
+            key={alignment.value}
             onClick={() => {
-              editor?.chain().focus().setLineHeight(height.value).run();
+              editor?.chain().focus().setTextAlign(alignment.value).run();
+              console.log("Alignment", alignment.value);
             }}
             className={cn(
               "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
-              editor?.getAttributes("paragraph").lineHeight === height.value &&
+              editor?.isActive({ textAlign: alignment.value }) &&
                 "bg-neutral-200/80"
             )}
           >
-            <span>{height.label}</span>
+            <alignment.icon className="size-4" />
+            <span>{alignment.label}</span>
           </button>
         ))}
       </DropdownMenuContent>

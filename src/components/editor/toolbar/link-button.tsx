@@ -2,13 +2,13 @@ import { cn } from "@/lib/utils";
 import { useEditorState } from "@/store/use-editor-store";
 import { Link2Icon } from "lucide-react";
 import { useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Input } from "../ui/input";
+} from "../../ui/dropdown-menu";
+import { Input } from "../../ui/input";
 
 export const LinkButton = () => {
   const { editor } = useEditorState();

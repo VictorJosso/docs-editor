@@ -1,15 +1,15 @@
 "use client";
 
-import { AlignButton } from "@/components/toolbar/AlignButton";
-import { FontFamilyButton } from "@/components/toolbar/FontFamilyButton";
-import { FontSizeButton } from "@/components/toolbar/FontSizeButton";
-import { HeadingLevelButton } from "@/components/toolbar/HeadingLevelButton";
-import { HighlightColorButton } from "@/components/toolbar/HighlightColorButton";
-import { ImageButton } from "@/components/toolbar/ImageButton";
-import { LineHeightButton } from "@/components/toolbar/LineHeightButton";
-import { LinkButton } from "@/components/toolbar/LinkButton";
-import { ListButton } from "@/components/toolbar/ListButton";
-import { TextColorButton } from "@/components/toolbar/TextColorButton";
+import { AlignButton } from "@/components/editor/toolbar/align-button";
+import { FontFamilyButton } from "@/components/editor/toolbar/font-family-button";
+import { FontSizeButton } from "@/components/editor/toolbar/font-size-button";
+import { HeadingLevelButton } from "@/components/editor/toolbar/heading-level-button";
+import { HighlightColorButton } from "@/components/editor/toolbar/highlight-color-button";
+import { ImageButton } from "@/components/editor/toolbar/image-button";
+import { LineHeightButton } from "@/components/editor/toolbar/line-height-button";
+import { LinkButton } from "@/components/editor/toolbar/link-button";
+import { ListButton } from "@/components/editor/toolbar/list-button";
+import { TextColorButton } from "@/components/editor/toolbar/text-color-button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { useEditorState } from "@/store/use-editor-store";
