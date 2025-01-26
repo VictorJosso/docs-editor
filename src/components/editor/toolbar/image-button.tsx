@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import { useEditorState } from "@/store/use-editor-store";
 import { ImageIcon, SearchIcon, UploadIcon } from "lucide-react";
 import { useState } from "react";
@@ -25,7 +24,6 @@ export const ImageButton = () => {
   const onChange = (src: string) => {
     editor?.chain().focus().setImage({ src }).run();
   };
-  const isActive = editor?.isActive("link");
 
   const onUpload = () => {
     const input = document.createElement("input");
@@ -55,12 +53,7 @@ export const ImageButton = () => {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button
-            className={cn(
-              "h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm",
-              isActive && "bg-neutral-200/80"
-            )}
-          >
+          <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
             <ImageIcon className="size-4" />
           </button>
         </DropdownMenuTrigger>
