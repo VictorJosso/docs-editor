@@ -1,5 +1,6 @@
 "use client";
 
+import { useLiveblocksExtension } from "@liveblocks/react-tiptap";
 import { Color } from "@tiptap/extension-color";
 import FontFamily from "@tiptap/extension-font-family";
 import { Highlight } from "@tiptap/extension-highlight";
@@ -21,22 +22,38 @@ import ImageResize from "tiptap-extension-resize-image";
 import { FontSize } from "@/extensions/font-size";
 import { lineHeight } from "@/extensions/line-height";
 
-import { useEditorState } from "@/store/use-editor-store";
 import { Ruler } from "@/components/editor/ruler";
+import { Threads } from "@/components/editor/threads";
+import { useEditorState } from "@/store/use-editor-store";
+import { useStorage } from "@liveblocks/react/suspense";
+import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from "@/constants/margins";
 
-export const Editor = () => {
+interface EditorProps {
+  initialContent?: string | undefined;
+}
+
+export const Editor = ({ initialContent }: EditorProps) => {
+  const leftMargin = useStorage((root) => root.leftMargin);
+  const rightMargin = useStorage((root) => root.rightMargin);
   const { setEditor } = useEditorState();
+  const liveblocks = useLiveblocksExtension({
+    initialContent,
+    offlineSupport_experimental: true,
+  });
   const editor = useEditor({
     immediatelyRender: false,
     editorProps: {
       attributes: {
-        style: "padding-left: 56px; padding-right: 56px;",
+        style: `padding-left: ${leftMargin ?? LEFT_MARGIN_DEFAULT}px; padding-right: ${rightMargin ?? RIGHT_MARGIN_DEFAULT}px;`,
         class:
           "focus:outline-none print:border-0 bg-white border border-[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text",
       },
     },
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        history: false,
+      }),
+      liveblocks,
       FontSize,
       Table.configure({
         resizable: true,
@@ -124,6 +141,7 @@ export const Editor = () => {
       <Ruler />
       <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
         <EditorContent editor={editor} />
+        <Threads editor={editor} />
       </div>
     </div>
   );

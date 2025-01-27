@@ -1,3 +1,4 @@
+import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { SearchInput } from "./search-input";
@@ -12,7 +13,15 @@ export const Navbar = () => {
         <h3 className="text-xl">Docs</h3>
       </div>
       <SearchInput />
-      <div />
+      <div className="flex gap-3 items-center pl-6">
+        <OrganizationSwitcher
+          afterCreateOrganizationUrl="/"
+          afterLeaveOrganizationUrl="/"
+          afterSelectOrganizationUrl="/"
+          afterSelectPersonalUrl="/"
+        />
+        <UserButton />
+      </div>
     </nav>
   );
 };

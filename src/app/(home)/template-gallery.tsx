@@ -9,9 +9,30 @@ import {
 } from "@/components/ui/carousel";
 import { templates } from "@/constants/templates";
 import { cn } from "@/lib/utils";
+import { useMutation } from "convex/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
+import { api } from "../../../convex/_generated/api";
 
 export const TemplateGallery = () => {
-  const isCreating = false;
+  const router = useRouter();
+  const create = useMutation(api.documents.create);
+  const [isCreating, setIsCreating] = useState(false);
+
+  const onTemplateClick = async (title: string, initialContent: string) => {
+    setIsCreating(true);
+    create({ title, initialContent })
+      .then((documentId) => {
+        toast.success("Document created.");
+        router.push(`/documents/${documentId}`);
+      })
+      .catch(() => {
+        toast.error("Failed to create document.");
+      })
+      .finally(() => setIsCreating(false));
+  };
+
   return (
     <div className="bg-[#F1F3F4]">
       <div className="max-w-screen-xl mx-auto px-16 py-6 flex flex-col gap-y-4">
@@ -31,7 +52,10 @@ export const TemplateGallery = () => {
                 >
                   <button
                     disabled={isCreating}
-                    onClick={() => {}}
+                    // TODO: Add initial content
+                    onClick={() => {
+                      onTemplateClick(template.label, template.initialContent);
+                    }}
                     style={{
                       backgroundImage: `url(${template.imageUrl})`,
                       backgroundSize: "cover",
